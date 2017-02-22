@@ -152,7 +152,7 @@ abstract class AbstractPayment extends AbstractMethod
         $quote->save();
 
         $orderId = $quote->getReservedOrderId();
-        $init->setOrderReference(sprintf('%010d', $orderId));
+        $init->setOrderReference(sprintf('%s', $orderId));
 
         $returnUrl = $urls['return'];
         $returnUrl .= strpos($urls['return'], '?') ? '&' : '?';
@@ -177,7 +177,7 @@ abstract class AbstractPayment extends AbstractMethod
         $init->mage_quoteId       = $quote->getId();
         $init->mage_orderCreation = $this->_dataHelper->getConfigData('options/order_creation');
 
-        $init->generateCustomerStatement($this->_dataHelper->getConfigData('options/shopname'), sprintf('%010d', $orderId));
+        $init->generateCustomerStatement($this->_dataHelper->getConfigData('options/shopname'), sprintf('%s', $orderId));
 
         $_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $storeManager = $_objectManager->get('Magento\Store\Model\StoreManagerInterface');
