@@ -39,18 +39,22 @@ define(
         'Magento_Checkout/js/model/error-processor',
         'Magento_Customer/js/model/customer',
         'Magento_Checkout/js/model/full-screen-loader',
+        'Magento_CheckoutAgreements/js/model/agreements-assigner',
         'jquery/ui',
         'Magento_Ui/js/modal/modal'
     ],
-    function ($, quote, urlBuilder, url, storage, errorProcessor, customer, fullScreenLoader) {
+    function ($, quote, urlBuilder, url, storage, errorProcessor, customer, fullScreenLoader, agreementsAssigner) {
         'use strict';
 
         return function (messageContainer, displaymode, iframe) {
+
             var serviceUrl,
                 payload,
                 paymentData = quote.paymentMethod(),
                 methodeCode = quote.paymentMethod().method,
                 checkoutStartUrl = url.build('/wirecardcheckoutseamless/checkout/start', {});
+
+            agreementsAssigner(paymentData);
 
             /**
              * Checkout for guest and registered customer.
